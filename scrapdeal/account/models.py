@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save, pre_save, pre_delete, post_delete
 from django.conf import settings
 from PIL import Image
+from django.dispatch import receiver
 
 UserModel = settings.AUTH_USER_MODEL
 
@@ -83,3 +84,9 @@ class Profile(models.Model):
     class Meta:
         verbose_name = 'Профиль'
         verbose_name_plural = 'Профили'
+
+
+@receiver(post_save, sender=UserModel)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)

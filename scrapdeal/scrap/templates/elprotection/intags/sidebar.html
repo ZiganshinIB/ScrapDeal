@@ -1,0 +1,22 @@
+<ul class="nav nav-pills">
+  {% for item in list_menu %}
+    {% if active_item is None%}
+      <li class="nav-item ">  
+        {% if forloop.first %}
+          <a href="{% url item.url %}" class="nav-link active">{{ item.title }}</a>
+        {% else %}
+          <a href="{% url item.url %}" class="nav-link">{{ item.title }}</a>
+        {% endif %}
+      </li>
+    {% else %}
+      <li class="nav-item">
+        {% if item.title in active_item %}
+          <a href="{% url item.url %}" class="nav-link active">{{ item.title }}</a>
+        {% else %}
+          <a href="{% url item.url %}" class="nav-link">{{ item.title }}</a>
+      {% endif %}
+    </li>
+    {% endif %}
+  {% endfor %}
+</ul>
+<a href="{% url 'logout' %}" class="btn btn-outline-success">Выход</a>
