@@ -22,8 +22,7 @@ urlpatterns = [
          ),
          name='logout'),
 
-    # path('password-change/', auth_views.PasswordChangeView.as_view(), name='password_change'),
-    # path('password-change/done/', auth_views.PasswordChangeDoneView.as_view(), name='password_change_done'),
+
 
     # Сброс пароля
     path('password_reset/',
@@ -57,4 +56,7 @@ urlpatterns = [
              template_name='registration/password_reset_complete.html'
          ),
          name='password_reset_complete'),
+
+    # path('password-change/', auth_views.PasswordChangeView.as_view(), name='password_change'),
+    # path('password-change/done/', auth_views.PasswordChangeDoneView.as_view(), name='password_change_done'),
 ]
