@@ -22,10 +22,7 @@
                 <button type="submit" class="btn btn-outline-info">Авторизация</button>
             </div>
             <div class="d-grid col-6 ">
-                <a href="#" class="btn btn-outline-secondary">Забыл</a>
-            </div>
-            <div class="d-grid mt-1">
-                <a href="#" class="btn btn-info">Регистрация</a>
+                <a href="{% url 'account:password_reset' %}" class="btn btn-outline-secondary">Забыл</a>
             </div>
         </div>
     </form>

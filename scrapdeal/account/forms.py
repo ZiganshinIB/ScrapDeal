@@ -1,8 +1,11 @@
 from django import forms
 from django.conf import settings
+from django.contrib.auth.forms import PasswordResetForm
 from django.utils.translation import gettext_lazy
 from django.contrib.auth import authenticate, get_user_model, password_validation
 from django.core.exceptions import ValidationError
+
+from .models import Profile
 
 UserModel = get_user_model()
 
@@ -12,7 +15,7 @@ class UserLoginForm(forms.Form):
         required=True,
         label=False,
         widget=forms.TextInput(attrs={
-            'class': 'form-control  border-8 mb-4 py-3 px-5 border-0 fs_24 SelfStorage__bg_lightgrey',
+            'class': 'form-control mb-3',
             'placeholder': 'Логин',
             'name': 'username'
         })
@@ -21,7 +24,7 @@ class UserLoginForm(forms.Form):
         required=True,
         label=False,
         widget=forms.PasswordInput(attrs={
-            'class': 'form-control  border-8 mb-4 py-3 px-5 border-0 fs_24 SelfStorage__bg_lightgrey',
+            'class': 'form-control mb-3',
             'placeholder': 'Пароль',
             'name': 'password'
         })
@@ -75,3 +78,90 @@ class UserLoginForm(forms.Form):
             code="invalid_login",
             params={"username": "username"},
         )
+
+
+class UserPasswordResetForm(PasswordResetForm):
+    email = forms.EmailField(
+        label=False,
+        widget=forms.EmailInput(
+            attrs={
+                'class': 'form-control  mb-3',
+                'placeholder': 'E-mail',
+                'name': 'EMAIL'
+            }
+        )
+    )
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        # Если пользователь с такой почтой не существует
+        if not UserModel.objects.filter(email__iexact=email, is_active=True).exists():
+            raise forms.ValidationError('Пользователь с такой почтой не существует')
+        return email
+
+
+class ProfileEditForm(forms.ModelForm):
+    first_name = forms.CharField(
+        required=True,
+        label=False,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control mb-3',
+                'placeholder': 'Имя',
+                'name': 'first_name'
+            }
+        ),
+        error_messages={'required': 'Пожалуйста, введите ваше имя.'}
+    )
+    last_name = forms.CharField(
+        required=True,
+        label=False,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control mb-3',
+                'placeholder': 'Фамилия',
+                'name': 'last_name'
+            }
+        ),
+        error_messages={'required': 'Пожалуйста, введите вашу фамилию.'}
+    )
+    email = forms.EmailField(
+        required=True,
+        label=False,
+        widget=forms.EmailInput(
+            attrs={
+                'class': 'form-control mb-3',
+                'placeholder': 'E-mail',
+                'name': 'email'
+            }
+        ),
+        error_messages={'required': 'Пожалуйста, введите вашу почту.'}
+    )
+
+    class Meta:
+        model = Profile
+        fields = [
+            'first_name',
+            'last_name',
+            'email',
+            'photo',
+        ]
+        widgets = {
+            'photo': forms.FileInput(
+                attrs={
+                    'class': 'form-control mb-3',
+                    'placeholder': 'Фото',
+                    'name': 'photo'
+                }
+            ),
+        }
+        labels = {
+            'photo': '',
+        }
+
+    def clean_email(self):
+        data = self.cleaned_data['email']
+        if UserModel.objects.filter(email=data).exists():
+            raise forms.ValidationError('Пользователь с такой почтой уже существует')
+        return data
+
