@@ -51,6 +51,7 @@ class Order(models.Model):
                                     null=True,
                                     related_name='order_responsible',
                                     verbose_name='Ответственный')
+    # date = models.DateField(null=True, blank=True, verbose_name='Дата выгрузки')
 
     def __str__(self):
         return f"Заказ {self.pk}"

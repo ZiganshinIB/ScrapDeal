@@ -1,0 +1,33 @@
+{% extends "scrap/base.html" %}
+{% load scrap_tags %}
+{% block title %}Протокола{% endblock %}
+
+{% block content %}
+<div class="row mt-1 mb-1 pt-1 pb-1">
+    <div class="col-6 d-grid">
+        <ul class="list-group list-group-flush"  style="text-align: left; border-radius: 5px">
+            <li class="list-group-item">Ф.И.О.: {{ employ}}</li>
+            <li class="list-group-item">Логин: {{ employ.user.username }} </li>
+            <li class="list-group-item">Почта: {{ employ.user.email }} </li>
+            <li class="list-group-item">Цех: {{ employ.workshop.number }} </li>
+            <li class="list-group-item">Название цеха: {{ employ.workshop.name }}</li>
+            <li class="list-group-item">Начальник цеха: {{ employ.workshop.head }}</li>
+        </ul>
+    </div>
+
+    <div class="col-6 d-grid">
+        <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold">Номер заявки: {{ order.number }} </div>
+                      Создал {{ order.created_by }} {{ order.created_at }}
+                      Ответсвенный: {{ order.responsible }}
+                </div>
+
+            </li>
+
+        </ul>
+    </div>
+
+</div>
+{% endblock %}
