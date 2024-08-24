@@ -104,24 +104,29 @@ class Profile(AbstractBaseUser, PermissionsMixin):
     )
     email = models.EmailField(
         _("email address"),
-        blank=True
+        blank=True,
+        null=True
     )
     phone = PhoneNumberField(
         verbose_name='Телефон',
-        blank=True
+        blank=True,
+        null=True
     )
     work_phone = models.CharField(
         verbose_name='Рабочий телефон',
         max_length=12,
-        blank=True
+        blank=True,
+        null=True
     )
     birthday = models.DateField(
         verbose_name='Дата рождения',
-        blank=True
+        blank=True,
+        null=True
     )
     position = models.ForeignKey(
         Position,
         on_delete=models.SET_NULL,
+        blank=True,
         null=True,
         verbose_name='Должность',
         related_name='workers'

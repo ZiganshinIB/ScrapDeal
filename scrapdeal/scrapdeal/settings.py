@@ -105,7 +105,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# AUH_USER_MODEL = 'account.User'
+AUTH_USER_MODEL = 'account.Profile'
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
@@ -129,11 +129,11 @@ REST_FRAMEWORK = {
 
 }
 
-# DJOSER = {
-#     'SERIALIZERS': {
-#         'user_create': 'cake.serializers.ClientRegistrationSerializer',
-#     }
-# }
+DJOSER = {
+    'SERIALIZERS': {
+        'user_create': 'account.serializers.ProfileRegistrationSerializer',
+    }
+}
 
 # Internationalization
 
