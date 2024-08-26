@@ -1,23 +1,27 @@
-{% load admin_static %}
-<div class="transfer-widget">
-    <div class="source-list">
-        <h3>{{ source_choices.model._meta.verbose_name_plural }}</h3>
-        {% for obj in source_choices %}
-        <div class="choice-item">{{ obj }}</div>
-        {% endfor %}
+{% load static %}
+<div class="worker-transfer-widget">
+    <div class="unassigned-workers">
+        <h3>Свободные сотрудники</h3>
+        <select multiple name="{{ name }}-unassigned" class="form-control">
+            {% for worker in unassigned_workers %}
+            <option value="{{ worker.id }}">{{ worker }}</option>
+            {% endfor %}
+        </select>
     </div>
     <div class="transfer-buttons">
-        <button type="button" class="btn btn-primary btn-move-right">
+        <a href="#" class="btn btn-primary btn-move-right">
             <i class="fas fa-arrow-right"></i>
-        </button>
-        <button type="button" class="btn btn-primary btn-move-left">
+        </a>
+        <a href="#" class="btn btn-primary btn-move-left">
             <i class="fas fa-arrow-left"></i>
-        </button>
+        </a>
     </div>
-    <div class="target-list">
-        <h3>{{ target_choices.model._meta.verbose_name_plural }}</h3>
-        {% for obj in target_choices %}
-        <div class="choice-item">{{ obj }}</div>
-        {% endfor %}
+    <div class="assigned-workers">
+        <h3>Сотрудники в цехе</h3>
+        <select multiple name="{{ name }}-assigned" class="form-control">
+            {% for worker in assigned_workers %}
+            <option value="{{ worker.id }}">{{ worker }}</option>
+            {% endfor %}
+        </select>
     </div>
 </div>
