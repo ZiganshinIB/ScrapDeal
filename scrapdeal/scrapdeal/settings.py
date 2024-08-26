@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'scrap.apps.ScrapConfig',
     'rest_framework',
+    'rest_framework.authtoken',
     'phonenumber_field',
     'djoser',
 ]
@@ -118,6 +119,7 @@ LOGOUT_URL = 'account:logout'
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.AllowAny',
