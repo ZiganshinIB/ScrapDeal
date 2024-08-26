@@ -1,5 +1,5 @@
 from rest_framework import routers
-from django.urls import path, include
+from django.urls import path, include, re_path
 from .api_views import *
 
 app_name = 'api_account'
@@ -12,4 +12,5 @@ router.register(r'profile', ProfileAPIViewSet)
 
 urlpatterns = [
     path('',include(router.urls)),
+    path('', include('djoser.urls.authtoken')),
 ]

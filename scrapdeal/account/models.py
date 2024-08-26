@@ -32,6 +32,7 @@ class Workshop(models.Model):
     head = models.ForeignKey(
         UserModel,
         on_delete=models.SET_NULL,
+        blank=True,
         null=True,
         verbose_name='Начальник цеха',
         related_name='workshop_head'
@@ -166,11 +167,11 @@ class Profile(AbstractBaseUser, PermissionsMixin):
     def clean(self):
         super().clean()
         self.email = self.__class__.objects.normalize_email(self.email)
-        if self.email and self.objects.filter(email=self.email).exists():
+        if self.email and Profile.objects.filter(email=self.email).exists():
             raise ValidationError("Пользователь с такой почтой уже существует")
-        if self.phone and self.objects.filter(phone=self.phone).exists():
+        if self.phone and Profile.objects.filter(phone=self.phone).exists():
             raise ValidationError("Пользователь с таким телефоном уже существует")
-        if self.work_phone and self.objects.filter(work_phone=self.work_phone).exists():
+        if self.work_phone and Profile.objects.filter(work_phone=self.work_phone).exists():
             raise ValidationError("Пользователь с таким рабочим телефоном уже существует")
 
     def get_full_name(self):
