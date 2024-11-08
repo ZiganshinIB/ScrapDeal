@@ -4,8 +4,14 @@ from django.shortcuts import render
 # Create your views here.
 
 
-@login_required
+
 def index(request):
-    profile = request.user.profile
+    profile = request.user
     context = {'employ': profile}
-    return render(request, 'scrap/dashboard.html', context)
+    return render(request, 'index.html', context)
+
+
+def account_notifications(request):
+    profile = request.user
+    context = {'profile': profile}
+    return render(request, 'account-notifications.html', context)

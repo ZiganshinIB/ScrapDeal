@@ -1,0 +1,67 @@
+{% extends 'component/account-settings/base.html' %}
+{% load static %}
+{% block account_content %}
+
+<div class="card mb-4">
+  <h5 class="card-header">Профил</h5>
+  <div class="card-body">
+    <div class="d-flex align-items-start align-items-sm-center gap-4">
+      <img
+              src="{% static '/img/avatars/1.png' %}"
+              alt="user-avatar"
+              class="d-block rounded"
+              height="100"
+              width="100"
+              id="uploadedAvatar"
+      />
+
+    </div>
+  </div>
+  <hr class="my-0"/>
+  <div class="card-body">
+    <form id="formAccountSettings" method="POST">
+      <div class="row">
+        <div class="mb-3 col-md-6">
+          <label for="firstName" class="form-label">First Name</label>
+          <input
+                  class="form-control"
+                  type="text"
+                  id="firstName"
+                  name="firstName"
+                  value="John"
+                  readonly
+          />
+        </div>
+        <div class="mb-3 col-md-6">
+          <label for="lastName" class="form-label">Last Name</label>
+          <input class="form-control" type="text" name="lastName" id="lastName" value="Doe" readonly/>
+        </div>
+        <div class="mb-3 col-md-6">
+          <label for="email" class="form-label">E-mail</label>
+          <input
+                  class="form-control"
+                  type="text"
+                  id="email"
+                  name="email"
+                  value="john.doe@example.com"
+                  placeholder="john.doe@example.com"
+                  readonly
+          />
+        </div>
+        <div class="mb-3 col-md-6">
+          <label for="organization" class="form-label">Organization</label>
+          <input
+                  type="text"
+                  class="form-control"
+                  id="organization"
+                  name="organization"
+                  value="ThemeSelection"
+                  readonly
+          />
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}
