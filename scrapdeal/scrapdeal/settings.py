@@ -30,7 +30,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'scrap.apps.ScrapConfig',
-    'phonenumber_field',
+    'tinymce',
 ]
 
 MIDDLEWARE = [
