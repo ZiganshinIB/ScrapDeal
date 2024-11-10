@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.contrib.admin import TabularInline, StackedInline
-from .models import Factory, CategoryMaterial, Customer, Executor, Order
+from django.utils.safestring import mark_safe
+
+from .models import Factory, CategoryMaterial, Customer, Executor, Order, Comment
 
 
 class MaterialInline(StackedInline):
@@ -53,6 +55,18 @@ class OrderAdmin(admin.ModelAdmin):
     search_fields = ('title', 'customer', 'executor')
     sortable_by = ('updated_at', 'created_at')
     prepopulated_fields = {'slug': ('title',)}
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('order', 'author', 'display_content')
+
+    def display_content(self, obj):
+        return mark_safe(obj.content)  # Используем mark_safe для безопасного отображения HTML
+
+    display_content.short_description = 'Содержание'  # Заголовок столбца
+
+
 
 # class OrderItemInline(TabularInline):
 #     model = OrderItem
