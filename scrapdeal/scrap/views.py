@@ -1,14 +1,17 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-
+from .models import Customer, Executor
 # Create your views here.
 
 
-
-def index(request):
+@login_required
+def account(request):
     profile = request.user
-    context = {'employ': profile}
-    return render(request, 'index.html', context)
+    context = {'user': profile}
+    # если user - заказчик
+    if Customer.objects.filter(user=profile).exists():
+        context['customer'] = Customer.objects.get(user=profile)
+    return render(request, 'scrap/account.html', context)
 
 
 def account_notifications(request):

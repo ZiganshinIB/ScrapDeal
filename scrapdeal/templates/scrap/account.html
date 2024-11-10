@@ -1,7 +1,7 @@
-{% extends 'component/account-settings/base.html' %}
+{% extends 'base.html' %}
 {% load static %}
-{% block account_content %}
-
+{% block title %}Профил{% endblock %}
+{% block content %}
 <div class="card mb-4">
   <h5 class="card-header">Профил</h5>
   <div class="card-body">
@@ -22,19 +22,19 @@
     <form id="formAccountSettings" method="POST">
       <div class="row">
         <div class="mb-3 col-md-6">
-          <label for="firstName" class="form-label">First Name</label>
+          <label for="firstName" class="form-label">Имя пользователя</label>
           <input
                   class="form-control"
                   type="text"
                   id="firstName"
                   name="firstName"
-                  value="John"
+                  value="{{ user.username }}"
                   readonly
           />
         </div>
         <div class="mb-3 col-md-6">
-          <label for="lastName" class="form-label">Last Name</label>
-          <input class="form-control" type="text" name="lastName" id="lastName" value="Doe" readonly/>
+          <label for="lastName" class="form-label">Полное имя</label>
+          <input class="form-control" type="text" name="lastName" id="lastName" value="{{ user.get_full_name }}" readonly/>
         </div>
         <div class="mb-3 col-md-6">
           <label for="email" class="form-label">E-mail</label>
@@ -43,19 +43,18 @@
                   type="text"
                   id="email"
                   name="email"
-                  value="john.doe@example.com"
-                  placeholder="john.doe@example.com"
+                  value="{{ user.email }}"
                   readonly
           />
         </div>
         <div class="mb-3 col-md-6">
-          <label for="organization" class="form-label">Organization</label>
+          <label for="organization" class="form-label">Заводы</label>
           <input
                   type="text"
                   class="form-control"
                   id="organization"
                   name="organization"
-                  value="ThemeSelection"
+                  value="{% for factory in customer.factories.all %}{{ factory.title }}{% if not forloop.last %}, {% endif %}{% endfor %}"
                   readonly
           />
         </div>
@@ -63,5 +62,4 @@
     </form>
   </div>
 </div>
-
 {% endblock %}

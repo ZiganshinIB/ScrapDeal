@@ -1,8 +1,9 @@
 from django.urls import path, include
-from .views import index, account_notifications
+from .views import account_notifications, account
 
 app_name = 'scrap'
 
 urlpatterns = [
-    path('', index, name='account'),
+    path('', account, name='account'),
+    path('notifications', account_notifications, name='account-notifications'),
 ]
