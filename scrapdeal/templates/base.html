@@ -14,45 +14,54 @@
           content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
   />
 
-  <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+  <title>{% block title %}{% endblock %}</title>
 
-  <meta name="description" content=""/>
+  {% block meta_description %}
+  {% endblock %}
 
-  <!-- Favicon -->
+  {% block favicon %}
   <link rel="icon" type="image/x-icon" href="{% static 'img/favicon/favicon.ico' %}"/>
+  {% endblock %}
 
-  <!-- Fonts -->
+  {% block fonts %}
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link
           href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
           rel="stylesheet"
   />
+  {% endblock %}
 
-  <!-- Icons. Uncomment required icon fonts -->
+  {% block icons %}
   <link rel="stylesheet" href="{% static 'vendor/fonts/boxicons.css' %}"/>
+  {% endblock %}
 
-  <!-- Core CSS -->
+  {% block core_css %}
   <link rel="stylesheet" href="{% static 'css/core.css' %}" class="template-customizer-core-css"/>
   <link rel="stylesheet" href="{% static 'css/theme-default.css' %}" class="template-customizer-theme-css"/>
   <link rel="stylesheet" href="{% static 'css/demo.css' %}"/>
+  {% endblock %}
 
-  <!-- Vendors CSS -->
+  {% block vendors_css %}
   <link rel="stylesheet" href="{% static 'vendor/libs/perfect-scrollbar/perfect-scrollbar.css' %}"/>
-
   <link rel="stylesheet" href="{% static 'vendor/libs/apex-charts/apex-charts.css' %}"/>
+  {% endblock %}
 
-  <!-- Page CSS -->
 
-  <!-- Helpers -->
+  {% block page_css %}{% endblock %}
+
+  {% block helpers_js %}
   <script src="{% static 'js/helpers.js' %}"></script>
+  {% endblock %}
 
-  <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-  <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+
+  {% block config_js %}
   <script src="{% static 'js/config.js' %}"></script>
+  {% endblock %}
 </head>
 
 <body>
+{% block body %}
 <!-- Layout wrapper -->
 <div class="layout-wrapper layout-content-navbar">
   <div class="layout-container">
@@ -80,27 +89,32 @@
   <!-- Overlay -->
   <div class="layout-overlay layout-menu-toggle"></div>
 </div>
+{% endblock %}
 <!-- / Layout wrapper -->
 
 {% block js %} {% endblock %}
 
-
+{% block build_js %}
 <script src="{% static 'vendor/libs/jquery/jquery.js' %}"></script>
 <script src="{% static 'vendor/libs/popper/popper.js' %}"></script>
 <script src="{% static 'js/bootstrap.js' %}"></script>
 <script src="{% static 'vendor/libs/perfect-scrollbar/perfect-scrollbar.js' %}"></script>
 
 <script src="{% static 'js/menu.js' %}"></script>
-<!-- endbuild -->
+{% endblock %}
 
 <!-- Vendors JS -->
+{% block vendors_js %}
 <script src="{% static 'vendor/libs/apex-charts/apexcharts.js' %}"></script>
-
+{% endblock %}
 <!-- Main JS -->
+{% block main_js %}
 <script src="{% static 'js/main.js' %}"></script>
-
+{% endblock %}
 <!-- Page JS -->
+{% block page_js %}
 <script src="{% static 'js/dashboards-analytics.js' %}"></script>
+{% endblock %}
 
 <!-- Place this tag in your head or just before your close body tag. -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
