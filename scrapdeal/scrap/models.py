@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from tinymce.models import HTMLField
 
 
 UserModel = get_user_model()
@@ -32,6 +33,9 @@ class Executor(models.Model):
                                              verbose_name='Категории материала',
                                              related_name='executors')
 
+    def __str__(self):
+        return self.user.get_full_name()
+
     class Meta:
         verbose_name = 'Исполнитель'
         verbose_name_plural = 'Исполнители'
@@ -55,7 +59,23 @@ class Factory(models.Model):
 
 class Order(models.Model):
     title = models.CharField(max_length=100, verbose_name='Название заказа')
-    disription
+    slug = models.SlugField(max_length=100, unique=True, db_index=True, verbose_name='Ссылка')
+    description = HTMLField(blank=True, verbose_name='Описание')
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, verbose_name='Заказчик')
+    executor = models.ForeignKey(Executor, null=True, blank=True,
+                                 on_delete=models.CASCADE, verbose_name='Исполнитель')
+    material_name = models.CharField(max_length=100, verbose_name='Название материала')
+    material_category = models.ForeignKey(CategoryMaterial, on_delete=models.CASCADE,
+                                          verbose_name='Категория материала')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Создан')
+    updated_at = models.DateTimeField(auto_now=True, verbose_name='Обновлен')
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Заказ'
+        verbose_name_plural = 'Заказы'
 
 
 

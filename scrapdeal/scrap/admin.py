@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.admin import TabularInline, StackedInline
-from .models import Factory, CategoryMaterial, Customer, Executor
+from .models import Factory, CategoryMaterial, Customer, Executor, Order
+
 
 class MaterialInline(StackedInline):
     model = Executor.executmaterials.through
@@ -44,6 +45,14 @@ class FactoryAdmin(admin.ModelAdmin):
     inlines = [CustomerInline]
     prepopulated_fields = {'slug': ('title',)}
 
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ('title', 'customer')
+    list_filter = ('customer', 'executor')
+    search_fields = ('title', 'customer', 'executor')
+    sortable_by = ('updated_at', 'created_at')
+    prepopulated_fields = {'slug': ('title',)}
 
 # class OrderItemInline(TabularInline):
 #     model = OrderItem
