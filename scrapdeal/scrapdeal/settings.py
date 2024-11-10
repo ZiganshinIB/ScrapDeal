@@ -30,9 +30,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'scrap.apps.ScrapConfig',
-    'rest_framework',
     'phonenumber_field',
-    'djoser',
 ]
 
 MIDDLEWARE = [
@@ -113,27 +111,6 @@ AUTHENTICATION_BACKENDS = [
 LOGIN_REDIRECT_URL = 'scrap:dashboard'
 LOGIN_URL = 'account:login'
 LOGOUT_URL = 'account:logout'
-
-
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.SessionAuthentication',
-    ),
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.AllowAny',
-    ),
-    'DEFAULT_RENDER_CLASSES': (
-        'rest_framework.renderers.JSONRenderer',
-        'rest_framework.renderers.BrowsableAPIRenderer',
-    )
-
-}
-
-DJOSER = {
-    'SERIALIZERS': {
-        'user_create': 'account.serializers.ProfileRegistrationSerializer',
-    }
-}
 
 # Internationalization
 

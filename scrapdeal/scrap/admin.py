@@ -1,8 +1,50 @@
-# from django.contrib import admin
-# from django.contrib.admin import TabularInline
-# from .models import Material, MaterialType, Order, OrderItem
-#
-#
+from django.contrib import admin
+from django.contrib.admin import TabularInline, StackedInline
+from .models import Factory, CategoryMaterial, Customer, Executor
+
+class MaterialInline(StackedInline):
+    model = Executor.executmaterials.through
+    extra = 0
+
+@admin.register(CategoryMaterial)
+class CategoryMaterialAdmin(admin.ModelAdmin):
+    fields = ('title',)
+    list_display = ('title',)
+    list_filter = ('title',)
+    search_fields = ('title',)
+
+@admin.register(Customer)
+class CustomerAdmin(admin.ModelAdmin):
+    fields = ('user',)
+    list_display = ('user',)
+    list_filter = ('user',)
+    search_fields = ('user',)
+
+
+@admin.register(Executor)
+class ExecutorAdmin(admin.ModelAdmin):
+    fields = ('user',)
+    list_display = ('user',)
+    list_filter = ('user',)
+    search_fields = ('user',)
+    inlines = [MaterialInline]
+
+
+class CustomerInline(TabularInline):
+    model = Factory.customers.through
+    extra = 0
+
+
+@admin.register(Factory)
+class FactoryAdmin(admin.ModelAdmin):
+    fields = ('title', 'slug')
+    list_display = ('title',)
+    list_filter = ('title',)
+    search_fields = ('title',)
+    inlines = [CustomerInline]
+    prepopulated_fields = {'slug': ('title',)}
+
+
 # class OrderItemInline(TabularInline):
 #     model = OrderItem
 #     fields = ('material', 'quantity')
