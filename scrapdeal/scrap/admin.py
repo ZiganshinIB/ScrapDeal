@@ -49,7 +49,7 @@ class FactoryAdmin(admin.ModelAdmin):
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = ('title', 'customer')
-    list_filter = ('customer', 'executor')
+    list_filter = ('status','customer', 'executor')
     search_fields = ('title', 'customer', 'executor')
     sortable_by = ('updated_at', 'created_at')
     prepopulated_fields = {'slug': ('title',)}

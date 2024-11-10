@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.db import models
 from django.contrib.auth import get_user_model
 from tinymce.models import HTMLField
@@ -58,15 +59,26 @@ class Factory(models.Model):
 
 
 class Order(models.Model):
+    STATUS = (
+        ('1_new', 'Новый'),
+        ('2_progress', 'В процессе'),
+        ('3_completed', 'Завершен'),
+        ('4_canceled', 'Отменен'),
+    )
     title = models.CharField(max_length=100, verbose_name='Название заказа')
     slug = models.SlugField(max_length=100, unique=True, db_index=True, verbose_name='Ссылка')
     description = HTMLField(blank=True, verbose_name='Описание')
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, verbose_name='Заказчик')
-    executor = models.ForeignKey(Executor, null=True, blank=True,
-                                 on_delete=models.CASCADE, verbose_name='Исполнитель')
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='customer_orders',
+                                 verbose_name='Заказчик',)
+    executor = models.ForeignKey(Executor, null=True, blank=True, related_name='executed_orders',
+                                 on_delete=models.SET_NULL, verbose_name='Исполнитель')
     material_name = models.CharField(max_length=100, verbose_name='Название материала')
     material_category = models.ForeignKey(CategoryMaterial, on_delete=models.CASCADE,
                                           verbose_name='Категория материала')
+    status = models.CharField(max_length=15, choices=STATUS, default='1_new', verbose_name='Статус')
+    date_start = models.DateField(verbose_name='Дата начала', blank=True,)
+    date_end = models.DateField(verbose_name='Дата окончания', blank=True,
+                                default=(timezone.now() + timezone.timedelta(days=5)))
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Создан')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Обновлен')
 
@@ -76,6 +88,7 @@ class Order(models.Model):
     class Meta:
         verbose_name = 'Заказ'
         verbose_name_plural = 'Заказы'
+        ordering = ('-date_end','status', '-created_at', '-updated_at', )
 
 
 
