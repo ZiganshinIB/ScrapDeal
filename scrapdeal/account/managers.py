@@ -4,7 +4,6 @@ from django.utils.translation import gettext_lazy as _
 
 
 class ProfileManager(BaseUserManager):
-    use_in_migrations = True
 
     def create_user(self, username, password, email=None, **extra_fields):
         if not username:

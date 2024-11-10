@@ -5,5 +5,4 @@ app_name = 'scrap'
 
 urlpatterns = [
     path('', index, name='account'),
-    path('account/notifications', account_notifications, name='account-notifications'),
 ]
