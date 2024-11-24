@@ -3,6 +3,17 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.forms import forms, ModelMultipleChoiceField, ModelForm, Widget
 from django.utils.html import format_html
+from django.urls import reverse
+from .models import Workshop, Profile, Position
+
+
+class WorkerTransferWidget(Widget):
+    template_name = 'widgets/worker_transfer.html'
+
+    def __init__(self, attrs=None):
+        super().__init__(attrs)
+        self.unassigned_workers = None
+        self.assigned_workers = None
 
 from .models import Profile
 
@@ -49,3 +60,7 @@ class ProfileAdmin(UserAdmin):
         ),
     )
 
+
+@admin.register(Position)
+class PositionAdmin(admin.ModelAdmin):
+    list_display = ('title',)
