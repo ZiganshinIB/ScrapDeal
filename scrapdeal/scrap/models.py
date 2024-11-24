@@ -18,7 +18,7 @@ class CategoryMaterial(models.Model):
 
 
 class Customer(models.Model):
-    user = models.OneToOneField(UserModel, on_delete=models.CASCADE, verbose_name='Пользователь')
+    user = models.OneToOneField(UserModel, on_delete=models.CASCADE, verbose_name='Пользователь', related_name='customer')
 
     def __str__(self):
         return self.user.get_full_name()
@@ -29,7 +29,7 @@ class Customer(models.Model):
 
 
 class Executor(models.Model):
-    user = models.OneToOneField(UserModel, on_delete=models.CASCADE, verbose_name='Пользователь')
+    user = models.OneToOneField(UserModel, on_delete=models.CASCADE, verbose_name='Пользователь', related_name='executor')
     executmaterials = models.ManyToManyField(CategoryMaterial, blank=True,
                                              verbose_name='Категории материала',
                                              related_name='executors')

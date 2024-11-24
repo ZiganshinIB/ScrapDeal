@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from .models import Customer, Executor
+from .models import Customer, Order
 # Create your views here.
 
 
@@ -18,3 +18,21 @@ def account_notifications(request):
     profile = request.user
     context = {'profile': profile}
     return render(request, 'account-notifications.html', context)
+
+# только get
+@login_required
+def get_my_orders(request):
+    # Мы хотим получить только свои заказы
+    customer = request.user.customer
+    orders = Order.objects.filter(customer=customer)
+    context = {'orders': orders}
+    return render(request, 'scrap/my-orders.html', context)
+
+
+
+def get_orders(request):
+    # Мы хотим получить все заказы
+    orders = Order.objects.all()
+    context = {'orders': orders}
+    return render(request, 'scrap/orders.html', context)
+    pass

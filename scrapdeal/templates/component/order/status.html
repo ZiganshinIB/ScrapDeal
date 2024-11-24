@@ -1,0 +1,3 @@
+
+<td><span class="badge {% if order.status == '1_new' %}bg-label-primary{% elif order.status == '2_progress' %}bg-label-info{% elif order.status == '3_completed' %}bg-label-success{% else %}bg-label-warning{% endif %} me-1">
+  {{ order.get_status_display }}</span></td>

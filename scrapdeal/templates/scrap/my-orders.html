@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Профил{% endblock %}
+{% block content %}
+<div class="card">
+  <h5 class="card-header">Заявки</h5>
+  <div class="table-responsive text-nowrap">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Название</th>
+        <th>Завод</th>
+        <th>Исполнитель</th>
+        <th>Статус</th>
+        <th>Действие</th>
+      </tr>
+      </thead>
+      <tbody class="table-border-bottom-0">
+      {% for order in orders %}
+
+      <tr>
+        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{ order.title }}</strong></td>
+        <td>{{ order.factory }}</td>
+        <td>{{ order.executor}}</td>
+        {% include 'component/order/status.html' with order=order %}
+        </td>
+        <td>
+          <div class="dropdown">
+            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+              <i class="bx bx-dots-vertical-rounded"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
