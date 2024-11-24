@@ -19,9 +19,12 @@
       {% for order in orders %}
 
       <tr>
-        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{ order.title }}</strong></td>
+        <td><i class="fab fa-angular fa-lg text-danger me-3"></i>
+          <a href="{% url 'scrap:order-detail' order.slug %}"><strong>{{ order.title }}</strong> </a>
+        </td>
         <td>{{ order.factory }}</td>
         <td>{{ order.executor}}</td>
+        <td>
         {% include 'component/order/status.html' with order=order %}
         </td>
         <td>

@@ -29,10 +29,16 @@ def get_my_orders(request):
     return render(request, 'scrap/my-orders.html', context)
 
 
-
+@login_required
 def get_orders(request):
     # Мы хотим получить все заказы
     orders = Order.objects.all()
     context = {'orders': orders}
     return render(request, 'scrap/orders.html', context)
-    pass
+
+
+@login_required
+def get_order(request, slug):
+    order = Order.objects.get(slug=slug)
+    context = {'order': order}
+    return render(request, 'scrap/order-detail.html', context)

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Профил{% endblock %}
+{% block content %}
+
+<div class="row my-5 mx-2">
+<div class="col-xl">
+  <div class="card mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h5 class="mb-0">Заявка {{ order.title }}</h5> <div class="float-end">{% include 'component/order/status.html' with order=order %}</div>
+<!--      <<small class="text-muted float-end">Default label</small>-->
+    </div>
+    <div class="card-body">
+        <div class="mb-3">
+          <label class="form-label" for="basic-default-fullname">Заказчик</label>
+          <input type="text" class="form-control" id="basic-default-fullname" value="{{ order.customer }}" readonly>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="basic-default-company">Ответственное лицо</label>
+          <input type="text" class="form-control" id="basic-default-company" value="{{ order.executor }}" readonly>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="basic-default-phone">Завод</label>
+          <input type="text" id="basic-default-phone" class="form-control" value="{{ order.factory }}"  readonly>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="basic-default-message">Описание</label>
+          <div>{{ order.description|safe }}</div>
+
+<!--          <textarea id="basic-default-message" class="form-control" readonly">{{ order.description }} </textarea>-->
+
+        </div>
+
+    {% include 'component/order/button_panel.html' with order=order %}
+    </div>
+  </div>
+</div>
+</div>
+
+{% endblock %}
