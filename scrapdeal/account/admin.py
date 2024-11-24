@@ -2,9 +2,8 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.forms import forms, ModelMultipleChoiceField, ModelForm, Widget
-from django.utils.html import format_html
-from django.urls import reverse
-from .models import Workshop, Profile, Position
+
+
 
 
 class WorkerTransferWidget(Widget):
@@ -59,8 +58,3 @@ class ProfileAdmin(UserAdmin):
             'fields': ('date_joined', 'last_login')}
         ),
     )
-
-
-@admin.register(Position)
-class PositionAdmin(admin.ModelAdmin):
-    list_display = ('title',)

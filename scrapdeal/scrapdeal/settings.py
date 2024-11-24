@@ -108,7 +108,7 @@ AUTH_USER_MODEL = 'account.Profile'
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
-LOGIN_REDIRECT_URL = 'scrap:dashboard'
+LOGIN_REDIRECT_URL = 'scrap:account'
 LOGIN_URL = 'account:login'
 LOGOUT_URL = 'account:logout'
 
