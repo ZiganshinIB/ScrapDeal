@@ -9,6 +9,10 @@ class MaterialInline(StackedInline):
     model = Executor.executmaterials.through
     extra = 0
 
+class FactoryInline(StackedInline):
+    model = Customer.factories.through
+    extra = 0
+
 @admin.register(CategoryMaterial)
 class CategoryMaterialAdmin(admin.ModelAdmin):
     fields = ('title',)
@@ -16,12 +20,14 @@ class CategoryMaterialAdmin(admin.ModelAdmin):
     list_filter = ('title',)
     search_fields = ('title',)
 
+
 @admin.register(Customer)
 class CustomerAdmin(admin.ModelAdmin):
     fields = ('user',)
     list_display = ('user',)
     list_filter = ('user',)
     search_fields = ('user',)
+    inlines = [FactoryInline]
 
 
 @admin.register(Executor)
