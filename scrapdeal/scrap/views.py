@@ -42,3 +42,8 @@ def get_order(request, slug):
     order = Order.objects.get(slug=slug)
     context = {'order': order}
     return render(request, 'scrap/order-detail.html', context)
+
+
+@login_required
+def create_order(request):
+    return render(request, 'scrap/create-order.html')

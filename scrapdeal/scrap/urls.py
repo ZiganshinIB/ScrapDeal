@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import account_notifications, account, get_my_orders, get_orders, get_order
+from .views import account_notifications, account, get_my_orders, get_orders, get_order, create_order
 
 app_name = 'scrap'
 
@@ -9,4 +9,5 @@ urlpatterns = [
     path('my-orders', get_my_orders, name='my-orders'),
     path('orders', get_orders, name="orders"),
     path("order/<slug:slug>", get_order, name="order-detail"),
+    path('create-order', create_order, name="create-order"),
 ]
