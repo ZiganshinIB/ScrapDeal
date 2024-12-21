@@ -24,10 +24,14 @@
                       class="mb-3" method="POST">
                 {{ form.as_div }}
                 <div class="mb-3">
-                  <button class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
+                  <button class="btn btn-primary d-grid w-100" type="submit">Вход</button>
+                </div>
+                <div class="mb-3">
+                  <a class="btn btn-primary d-grid w-100" href="{% url 'admin:login' %}">Вход в Админ панель</a>
                 </div>
                 {% csrf_token %}
               </form>
+
             </div>
           </div>
           <!-- /Register -->
