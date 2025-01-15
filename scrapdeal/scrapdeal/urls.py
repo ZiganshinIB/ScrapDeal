@@ -7,7 +7,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('scrap.urls', namespace='scrap'),),
-    path('tinymce/', include('tinymce.urls')),
+    path('^tinymce/', include('tinymce.urls')),
     path('account/', include('account.urls', namespace='account'),),
 ]
 

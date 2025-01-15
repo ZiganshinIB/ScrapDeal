@@ -30,8 +30,9 @@
 <!--          <textarea id="basic-default-message" class="form-control" readonly">{{ order.description }} </textarea>-->
 
         </div>
-
+    {% if request.user.executor %}
     {% include 'component/order/button_panel.html' with order=order %}
+    {% endif %}
     </div>
   </div>
 </div>

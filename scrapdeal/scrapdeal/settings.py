@@ -155,3 +155,13 @@ if env.str('EMAIL_HOST_USER', '') and env.str('EMAIL_HOST_PASSWORD', ''):
     EMAIL_USE_TLS = True
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+TINYMCE_DEFAULT_CONFIG = {
+    'theme': 'silver',
+    'plugins': 'image code',  # Включаем плагин для работы с изображениями
+    'toolbar': 'undo redo | styleselect | bold italic | image | code',  # Настраиваем панель инструментов
+    'relative_urls': False,
+    'remove_script_host': False,
+    'document_base_url': '/media/',  # Укажите базовый URL для загрузок
+}

@@ -1,6 +1,11 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
-from .models import Customer, Order
+from django.shortcuts import render, redirect
+from django.utils.text import slugify
+
+from .forms import OrderForm
+from .models import Customer, Order, Executor
+
+
 # Create your views here.
 
 
@@ -46,4 +51,28 @@ def get_order(request, slug):
 
 @login_required
 def create_order(request):
-    return render(request, 'scrap/create-order.html')
+    """Create an order"""
+    if request.method == 'POST':
+        form = OrderForm(request.POST, user=request.user)
+        if form.is_valid():
+            order = form.save(commit=False)
+            # slug
+            order.customer = request.user.customer
+            # prepopulated_fields
+            order.slug = slugify(order.title)
+            order.save()
+            return redirect('scrap:my-orders')
+    else:
+        form = OrderForm(user=request.user)
+    context = {'form': form, 'categories': form.fields['material_category'].queryset}
+
+    return render(request, 'scrap/create-order.html', context)
+
+
+@login_required
+def take_order(request, slug):
+    order = Order.objects.get(slug=slug)
+    if Executor.objects.filter(user=request.user).exists():
+        order.executor = Executor.objects.get(user=request.user)
+    order.save()
+    return redirect('scrap:my-orders')
